@@ -1,0 +1,13 @@
+/vendor/
+/.env
+/storage/
+/directory_listinqg.txt
+/.htaccess
+/.architecture.md
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db

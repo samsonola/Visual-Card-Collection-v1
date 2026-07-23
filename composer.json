@@ -1,0 +1,9 @@
+{
+    "require": {
+        "vlucas/phpdotenv": "^5.6",
+        "firebase/php-jwt": "^7.1",
+        "monolog/monolog": "^3.10",
+        "predis/predis": "^3.5",
+        "aws/aws-sdk-php": "^3.386"
+    }
+}
