@@ -90,7 +90,7 @@ $data = cacheRemember($cacheKey, function () use ($conn) {
         'active_supervisors' => $active_supervisors
     ];
 
-}, 60);
+}, $_ENV['DASHBOARD_CACHE_TTL']);
 
 // -------------------------------------------------
 // RESPONSE

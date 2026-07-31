@@ -60,7 +60,7 @@ $activity = cacheRemember($cacheKey, function () use ($conn) {
 
     return $rows;
 
-}, 60); // Cache for 60 seconds
+}, $_ENV['DASHBOARD_CACHE_TTL']); // Cache for 60 seconds
 
 // -------------------------------------------------
 // RESPONSE

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Supervisor Test</title>
+
+<style>
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4f4f4;
+    padding:40px;
+}
+
+.container{
+    max-width:650px;
+    margin:auto;
+    background:#fff;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 5px 20px rgba(0,0,0,.1);
+}
+
+h2{
+    margin-top:0;
+}
+
+label{
+    display:block;
+    margin-top:18px;
+    font-weight:bold;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    box-sizing:border-box;
+    margin-top:5px;
+}
+
+button{
+    margin-top:25px;
+    width:100%;
+    padding:15px;
+    border:none;
+    background:#0d6efd;
+    color:#fff;
+    font-size:16px;
+    cursor:pointer;
+    border-radius:6px;
+}
+
+button:hover{
+    background:#0956c7;
+}
+
+pre{
+    background:#111;
+    color:#00ff7f;
+    padding:20px;
+    overflow:auto;
+    margin-top:30px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h2>Create Supervisor</h2>
+
+<label>Bearer Token</label>
+<input id="token" placeholder="Paste JWT Token">
+
+<label>Full Name</label>
+<input id="fullName" placeholder="Ibrahim Musa">
+
+<label>Username</label>
+<input id="username" placeholder="ibrahim.musa">
+
+<label>Email</label>
+<input id="email" placeholder="ibrahim@example.com">
+
+<label>Password</label>
+<input
+    id="password"
+    type="password"
+    placeholder="password">
+
+<label>Project ID (Optional)</label>
+<input
+    id="pro_id"
+    placeholder="35544">
+
+<label>Profile Photo (Optional)</label>
+<input
+    id="profile_photo"
+    type="file"
+    accept="image/*">
+
+<button onclick="createSupervisor()">
+
+Create Supervisor
+
+</button>
+
+<pre id="result"></pre>
+
+</div>
+
+<script>
+
+const endpoint =
+'http://localhost/collect/organization/supervisors/add.php';
+
+async function createSupervisor(){
+
+    const token =
+        document.getElementById('token').value.trim();
+
+    const formData = new FormData();
+
+    formData.append(
+        'fullName',
+        document.getElementById('fullName').value
+    );
+
+    formData.append(
+        'username',
+        document.getElementById('username').value
+    );
+
+    formData.append(
+        'email',
+        document.getElementById('email').value
+    );
+
+    formData.append(
+        'password',
+        document.getElementById('password').value
+    );
+
+    const project =
+        document.getElementById('pro_id').value.trim();
+
+    if(project !== ''){
+
+        formData.append(
+            'pro_id',
+            project
+        );
+
+    }
+
+    const photo =
+        document.getElementById('profile_photo').files[0];
+
+    if(photo){
+
+        formData.append(
+            'profile_photo',
+            photo
+        );
+
+    }
+
+    try{
+
+        const response = await fetch(endpoint,{
+
+            method:'POST',
+
+            headers:{
+                Authorization:'Bearer ' + token
+            },
+
+            body:formData
+
+        });
+
+        const data = await response.json();
+
+        console.log(data);
+
+        document.getElementById('result').textContent =
+            JSON.stringify(data,null,4);
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        document.getElementById('result').textContent =
+            error;
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>

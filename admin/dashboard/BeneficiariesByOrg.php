@@ -131,7 +131,7 @@ $data = cacheRemember($cacheKey, function () use ($conn) {
 
     ];
 
-}, 300);
+}, $_ENV['DASHBOARD_CACHE_TTL']);
 
 // -------------------------------------------------
 // RESPONSE
